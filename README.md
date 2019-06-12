@@ -4,7 +4,9 @@ Usage: <iframe src="LinksPlayer.htm?id=1" allowfullscreen></iframe>
 
 Example: https://3d-modellers.com/
 
-player automatically adopts to 3D model. no input parameters needed.
+player automatically adapts to 3D model. no input parameters needed.
+
+prepare model using https://github.com/AnalyticalGraphicsInc/gltf-pipeline
 
 Roadmap:
 1. Adopt .basis image format (50% complete)
