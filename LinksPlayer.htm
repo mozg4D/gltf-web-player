@@ -1,11 +1,11 @@
 <!DOCTYPE html><head><meta name=viewport content="width=device-width, initial-scale=1, maximum-scale=1"><meta name=Description content="LinksViewer">
-<style>.ico{width:32;height:32;position:absolute}.ico:hover{border:2px solid #fff;margin:-2px}</style>
-</head><body id="LinksBody" style="margin:0;background:#ddd;position:fixed;overflow:hidden;cursor:pointer;user-select:none;font-family:helvetica;font-size:22px;-webkit-tap-highlight-color:rgba(0,0,0,0)">
-<div style="position:absolute;width:100vw;z-index:-1;background:#ddd;text-align:center;padding:calc(50vh - 30px) 0">3D model<br>loading...</div>
-<svg style="position:absolute;right:7;top:7;width:32;height:32" onclick="fs()" class="ico"><path style="stroke:#ddd;fill:#fff" d="M0.5,0.5 31.5,0.5 31.5,31.5 0.5,31.5Z"></path>
+<style>.ico:hover{border:2px solid #fff;margin:-2px}</style>
+</head><body id=Body style="margin:0;background:#ddd;position:fixed;cursor:pointer;user-select:none;font-size:20px;-webkit-tap-highlight-color:rgba(0,0,0,0)">
+<div style="position:absolute;width:100vw;z-index:-1;text-align:center;padding:calc(50vh - 30px) 0">3D model<br>loading...</div>
+<svg style="position:absolute;right:7;top:7;width:32;height:32" onclick=fs() class="ico"><path style="stroke:#ddd;fill:#fff" d="M0.5,0.5 31.5,0.5 31.5,31.5 0.5,31.5Z"></path>
 <path style="stroke:#000;fill:none" d="M6,12 v-6 h6 M20,6 h6 v6 M26,20 v6 h-6 M12,26 h-6 v-6"></path></svg>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/105/three.min.js"></script><script src=GLTFLoader.js></script>
-<link rel="preload" href="side.png" as=image crossorigin><link rel="preload" href="bottom.png" as=image crossorigin><link rel="preload" href="top.png" as=image crossorigin>
+<link rel=preload href=side.png as=image crossorigin><link rel=preload href=bottom.png as=image crossorigin><link rel=preload href=top.png as=image crossorigin>
 <script> mouseIsDown=animate_active=false
 center = new THREE.Vector3()
 alpha=-0.8; beta=1.1; x_offset=y_offset=0
@@ -52,11 +52,11 @@ loader.load(id+".glb", (gltf)=>{
     camera = new THREE.PerspectiveCamera(40, ww/wh, distance/100, distance*2)
     rotateCam() })
 
-onmousedown = (e)=>{mouseIsDown=true; x_coord=e.clientX; y_coord=e.clientY}
-ontouchstart = (e)=>{mouseIsDown=true; x_coord=e.touches[0].clientX; y_coord=e.touches[0].clientY}
+onmousedown = (e)=>{mouseIsDown=true; x=e.clientX; y=e.clientY}
+ontouchstart = (e)=>{mouseIsDown=true; x=e.touches[0].clientX; y=e.touches[0].clientY}
 onmouseup = ()=>{mouseIsDown=false}
-onmousemove = (e)=>{if(mouseIsDown){alpha += (x_coord-e.clientX)/200; beta += (y_coord-e.clientY)/200; rotateCam(); x_coord=e.clientX; y_coord=e.clientY}}
-ontouchmove = (e)=>{if(mouseIsDown){alpha += (x_coord-e.touches[0].clientX)/80; beta += (y_coord-e.touches[0].clientY)/80; rotateCam(); x_coord=e.touches[0].clientX; y_coord=e.touches[0].clientY}}
+onmousemove = (e)=>{if(mouseIsDown){alpha += (x-e.clientX)/200; beta += (y-e.clientY)/200; rotateCam(); x=e.clientX; y=e.clientY}}
+ontouchmove = (e)=>{if(mouseIsDown){alpha += (x-e.touches[0].clientX)/80; beta += (y-e.touches[0].clientY)/80; rotateCam(); x=e.touches[0].clientX; y=e.touches[0].clientY}}
 
 function rotateCam(){
     if(beta<0.05) beta=0.05
@@ -99,5 +99,5 @@ function animate() {animate_active=true
     renderer.render( scene, camera )
     fix ? requestAnimationFrame(animate) : animate_active=false}
 
-fss=false; function fs(){fss=!fss; fss ? LinksBody.requestFullscreen() : document.exitFullscreen()}
+fss=false; function fs(){fss=!fss; fss ? Body.requestFullscreen() : document.exitFullscreen()}
 </script></body>
