@@ -1,4 +1,4 @@
-# gltf web player *LinksPlayer (three.js based)
+# gltf 3D web player *LinksPlayer (three.js based)
 
 Usage: <iframe src="LinksPlayer.htm?id=1" allowfullscreen></iframe>
 
