@@ -1,0 +1,103 @@
+<!DOCTYPE html><head><meta name=viewport content="width=device-width, initial-scale=1, maximum-scale=1"><meta name=Description content="LinksViewer">
+<style>.ico{width:32;height:32;position:absolute}.ico:hover{border:2px solid #fff;margin:-2px}</style>
+</head><body id="LinksBody" style="margin:0;background:#ddd;position:fixed;overflow:hidden;cursor:pointer;user-select:none;font-family:helvetica;font-size:22px;-webkit-tap-highlight-color:rgba(0,0,0,0)">
+<div style="position:absolute;width:100vw;z-index:-1;background:#ddd;text-align:center;padding:calc(50vh - 30px) 0">3D model<br>loading...</div>
+<svg style="position:absolute;right:7;top:7;width:32;height:32" onclick="fs()" class="ico"><path style="stroke:#ddd;fill:#fff" d="M0.5,0.5 31.5,0.5 31.5,31.5 0.5,31.5Z"></path>
+<path style="stroke:#000;fill:none" d="M6,12 v-6 h6 M20,6 h6 v6 M26,20 v6 h-6 M12,26 h-6 v-6"></path></svg>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/105/three.min.js"></script><script src=GLTFLoader.js></script>
+<link rel="preload" href="side.png" as=image crossorigin><link rel="preload" href="bottom.png" as=image crossorigin><link rel="preload" href="top.png" as=image crossorigin>
+<script> mouseIsDown=animate_active=false
+center = new THREE.Vector3()
+alpha=-0.8; beta=1.1; x_offset=y_offset=0
+ww=window.innerWidth; wh=window.innerHeight
+h = Math.round(wh*0.95)
+w = Math.round(ww*0.95)
+id=location.search.split('id=')[1]
+
+var loader = new THREE.GLTFLoader()
+env = new THREE.CubeTextureLoader().load(["side.png", 'side.png', 'top.png', 'bottom.png','side.png', 'side.png'])
+scene = new THREE.Scene()
+scene.add(new THREE.AmbientLight( "#fff", 1.15 ))
+scene.background = env
+renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true })
+renderer.setSize(ww, wh)
+document.body.appendChild(renderer.domElement)
+
+function rescale(){
+    if(ww!=window.innerWidth || wh!=window.innerHeight) {ww=window.innerWidth; wh=window.innerHeight
+    renderer.setSize(ww, wh)
+    camera.aspect = ww / wh
+    h = Math.round(wh*0.95)
+    w = Math.round(ww*0.95)
+    camera.setViewOffset(ww, wh, x_offset, y_offset, ww, wh)
+    animate() }}
+
+setInterval( rescale, 150)
+
+loader.load(id+".glb", (gltf)=>{
+    bBox = new THREE.Box3().setFromObject(gltf.scene)
+    bBox.getCenter(center)
+    point_1 = new THREE.Vector3(bBox.min.x, bBox.min.y, bBox.min.z)
+    point_2 = new THREE.Vector3(bBox.min.x, bBox.min.y, bBox.max.z)
+    point_3 = new THREE.Vector3(bBox.min.x, bBox.max.y, bBox.min.z)
+    point_4 = new THREE.Vector3(bBox.min.x, bBox.max.y, bBox.max.z)
+    point_5 = new THREE.Vector3(bBox.max.x, bBox.min.y, bBox.min.z)
+    point_6 = new THREE.Vector3(bBox.max.x, bBox.min.y, bBox.max.z)
+    point_7 = new THREE.Vector3(bBox.max.x, bBox.max.y, bBox.min.z)
+    point_8 = new THREE.Vector3(bBox.max.x, bBox.max.y, bBox.max.z)
+    distance = Math.max(bBox.max.x-bBox.min.x, bBox.max.y-bBox.min.y, bBox.max.z-bBox.min.z)*1.3
+
+    gltf.scene.traverse((child) => {if (child instanceof THREE.Mesh) {child.material.envMap = env; child.material.envMapIntensity=1.7}})
+    scene.add(gltf.scene)
+    camera = new THREE.PerspectiveCamera(40, ww/wh, distance/100, distance*2)
+    rotateCam() })
+
+onmousedown = (e)=>{mouseIsDown=true; x_coord=e.clientX; y_coord=e.clientY}
+ontouchstart = (e)=>{mouseIsDown=true; x_coord=e.touches[0].clientX; y_coord=e.touches[0].clientY}
+onmouseup = ()=>{mouseIsDown=false}
+onmousemove = (e)=>{if(mouseIsDown){alpha += (x_coord-e.clientX)/200; beta += (y_coord-e.clientY)/200; rotateCam(); x_coord=e.clientX; y_coord=e.clientY}}
+ontouchmove = (e)=>{if(mouseIsDown){alpha += (x_coord-e.touches[0].clientX)/80; beta += (y_coord-e.touches[0].clientY)/80; rotateCam(); x_coord=e.touches[0].clientX; y_coord=e.touches[0].clientY}}
+
+function rotateCam(){
+    if(beta<0.05) beta=0.05
+    if(beta>3.13) beta=3.13
+    camera.position.x = center.x + distance * Math.sin(beta) * Math.sin(alpha)
+    camera.position.y = center.y + distance * Math.cos(beta)
+    camera.position.z = center.z + distance * Math.sin(beta) * Math.cos(alpha)
+    camera.lookAt(center)
+    renderer.render( scene, camera )
+    if(!animate_active) animate()}
+
+function animate() {animate_active=true
+    p1=point_1.clone(); p1.project(camera); p1.x=(p1.x+1)/2*ww; p1.y=(1-p1.y)/2*wh
+    p2=point_2.clone(); p2.project(camera); p2.x=(p2.x+1)/2*ww; p2.y=(1-p2.y)/2*wh
+    p3=point_3.clone(); p3.project(camera); p3.x=(p3.x+1)/2*ww; p3.y=(1-p3.y)/2*wh
+    p4=point_4.clone(); p4.project(camera); p4.x=(p4.x+1)/2*ww; p4.y=(1-p4.y)/2*wh
+    p5=point_5.clone(); p5.project(camera); p5.x=(p5.x+1)/2*ww; p5.y=(1-p5.y)/2*wh
+    p6=point_6.clone(); p6.project(camera); p6.x=(p6.x+1)/2*ww; p6.y=(1-p6.y)/2*wh
+    p7=point_7.clone(); p7.project(camera); p7.x=(p7.x+1)/2*ww; p7.y=(1-p7.y)/2*wh
+    p8=point_8.clone(); p8.project(camera); p8.x=(p8.x+1)/2*ww; p8.y=(1-p8.y)/2*wh
+
+    px=[p1.x, p2.x, p3.x, p4.x, p5.x, p6.x, p7.x, p8.x]
+    py=[p1.y, p2.y, p3.y, p4.y, p5.y, p6.y, p7.y, p8.y]
+
+    borderLeft=Math.round(Math.min(...px))
+    borderRight=Math.round(ww-Math.max(...px))
+    borderTop=Math.round(Math.min(...py))
+    borderBottom=Math.round(wh-Math.max(...py))
+    width = Math.round(Math.max(...px) - Math.min(...px))
+    height = Math.round(Math.max(...py) - Math.min(...py))
+
+    fix=false
+    if(Math.abs(borderTop - borderBottom) > 3) {fix=true; y_offset += (borderTop - borderBottom)/20}
+    if(Math.abs(borderRight - borderLeft) > 3) {fix=true; x_offset += (borderLeft - borderRight)/20}
+    if(width > w + 3) {fix=true; camera.zoom += (w-width)/w/15}
+    if(height > h + 3) {fix=true; camera.zoom += (h-height)/h/15}
+    if(width < w - 3  && height < h - 4) {fix=true; w - width > h - height ? camera.zoom -= (height - h)/h/15 : camera.zoom -= (width-w)/w/15 }
+
+    camera.setViewOffset(ww, wh, x_offset, y_offset, ww, wh)
+    renderer.render( scene, camera )
+    fix ? requestAnimationFrame(animate) : animate_active=false}
+
+fss=false; function fs(){fss=!fss; fss ? LinksBody.requestFullscreen() : document.exitFullscreen()}
+</script></body>
