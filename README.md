@@ -10,6 +10,6 @@ prepare model using https://github.com/AnalyticalGraphicsInc/gltf-pipeline
 
 Roadmap:
 1. Adopt .basis image format (50% complete)
-2. Windows application for 3D model preparation (using gltf-pipeline). and setting player attributes.
+2. Windows application for 3D model preparation (using gltf-pipeline) and setting player attributes.
 3. Advanced Cinema4D-like camera navigation
 4. VR AR support
