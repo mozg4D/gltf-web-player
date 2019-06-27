@@ -34,8 +34,15 @@ Cinema4D + Redshift workflow:
 
 You can use Cinema4D "Bake object" comand with "illuminate" option on and skip redshift baker
 
+Exporting GLTF:
+
+use this amazing GLTF exporter by Basel Abu-sininni
+https://labs.maxon.net/?p=3360
+
 ![Cinema4D workflow](https://github.com/mozg4D/gltf-web-player/blob/master/cinema4d_1.jpg)
 
-
-
-
+1. turn on "Color" channel and set it's brightness to 0
+2. turn on "Luminance" channel and set it's texture to recently baked one
+3. turn on "Reflectance" channel and set reflection and specular strenghts to 0
+4. Add camera (to overwrite default view angle in GLTF player)
+5. (7) export with "export camera" and "export to binary" options on in "GLTF export options" window
