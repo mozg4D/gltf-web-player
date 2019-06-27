@@ -54,3 +54,6 @@ https://labs.maxon.net/?p=3360
 If you've done everything correctly, scene in web player should look EXACTLY as in cinema4D:
 
 ![Cinema4D workflow](https://github.com/mozg4D/gltf-web-player/blob/master/result.jpg)
+
+To speed up the development of player feel free to donate some)
+https://www.paypal.me/mozg4d
