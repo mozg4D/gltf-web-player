@@ -11,12 +11,12 @@ prepare model using https://github.com/AnalyticalGraphicsInc/gltf-pipeline
 V 1.1 (June 28 2019) : Exported camera support; load time and performance improvements
 
 Roadmap:
-0. Cinema4d-like navigation
-1. Adopt .basis image format (50% complete)
-2. Windows application for 3D model preparation (using gltf-pipeline) and setting player attributes.
-3. Advanced Cinema4D-like camera navigation
-4. VR AR support
-5. Set markers and links on 3D model
+1. Cinema4d-like navigation
+2. Adopt .basis image format (50% complete)
+3. Windows application for 3D model preparation (using gltf-pipeline) and setting player attributes.
+4. Advanced Cinema4D-like camera navigation
+5. VR AR support
+6. Set markers and links on 3D model
 
 *Player can be used for other 3D formats. Use different loader for that https://threejs.org/docs/#manual/en/introduction/Loading-3D-models
 
