@@ -25,14 +25,14 @@ Cinema4D + Redshift workflow:
 
 ![Cinema4D workflow](https://github.com/mozg4D/gltf-web-player/blob/master/cinema4d_2.jpg)
 
-0 - make your 3D model
-1 - find "Bake Object..." comand in "Customize Commands"
-2 - select objects that you want to bake and execute "Bake Objects..." command
-3 - In "Bake Object" window deselect "illuminate" option, select desired texture resulution, set pixel border to 8 and supersampling to 1
+0. make your 3D model
+1. find "Bake Object..." comand in "Customize Commands"
+2. select objects that you want to bake and execute "Bake Objects..." command
+3. In "Bake Object" window deselect "illuminate" option, select desired texture resulution, set pixel border to 8 and supersampling to 1
 "Bake Object" will unwrap UV's for you
-4 - Create "Redshift BakeSet" object
-5 - Add objects that you want to bake with global illumination to "Redshift BakeSet" --> Objects
-6 - Set desired resolution and bake
+4. Create "Redshift BakeSet" object
+5. Add objects that you want to bake with global illumination to "Redshift BakeSet" --> Objects
+6. Set desired resolution and bake
 
 You can use Cinema4D "Bake object" comand with "illuminate" option on and skip redshift baker
 
