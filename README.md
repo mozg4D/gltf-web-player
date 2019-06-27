@@ -21,6 +21,6 @@ If you need additional features for $ - contact me mozg4D@gmail.com
 
 Cinema4D + Redshift workflow:
 
-https://github.com/mozg4D/gltf-web-player/blob/master/cinema4d_1.jpg
+!(https://github.com/mozg4D/gltf-web-player/blob/master/cinema4d_1.jpg)
 
 
