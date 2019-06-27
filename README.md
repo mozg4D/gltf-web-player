@@ -34,7 +34,7 @@ Cinema4D + Redshift workflow:
 
 You can use Cinema4D "Bake object" comand with "illuminate" option on and skip redshift baker
 
-![Cinema4D workflow](https://github.com/mozg4D/gltf-web-player/blob/master/cinema4d_2.jpg)
+![Cinema4D workflow](https://github.com/mozg4D/gltf-web-player/blob/master/cinema4d_1.jpg)
 
 
 
