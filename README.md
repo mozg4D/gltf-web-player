@@ -2,7 +2,7 @@
 
 Usage: <iframe src="LinksPlayer.htm?id=1" allowfullscreen></iframe>
 
-Example: https://3d-modellers.com/
+Example: http://mozg4d.com/LinksPlayer/
 
 Player automatically adapts to any 3D model. No input parameters needed.
 
