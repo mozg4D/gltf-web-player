@@ -1,27 +1,25 @@
-<!DOCTYPE html><head><meta name=viewport content="width=device-width, initial-scale=1, maximum-scale=1"><meta name=Description content="LinksViewer">
+<!DOCTYPE html><html lang="ru"></html><head><meta name=viewport content="width=device-width, initial-scale=1, maximum-scale=1"><meta name=Description content="LinksViewer">
 <style>.ico{width:32;height:32;position:absolute}.ico:hover{border:2px solid #fff;margin:-2px} canvas{touch-action:none}</style>
 </head><body id="LinksBody" style="margin:0;background:#ddd;position:fixed;overflow:hidden;cursor:pointer;user-select:none;font-family:helvetica;font-size:22px;-webkit-tap-highlight-color:rgba(0,0,0,0)">
-<div style="position:absolute;width:100vw;z-index:-1;background:#ddd;text-align:center;padding:calc(50vh - 30px) 0">3D model<br>loading...</div>
+<div style="position:absolute;width:100vw;z-index:-1;background:#bbb;text-align:center;padding:calc(50vh - 30px) 0">3D model<br>loading...</div>
 <svg style="position:absolute;right:7;top:7;width:32;height:32" onclick="fs()" class="ico"><path style="stroke:#ddd;fill:#fff" d="M0.5,0.5 31.5,0.5 31.5,31.5 0.5,31.5Z"></path>
 <path style="stroke:#000;fill:none" d="M6,12 v-6 h6 M20,6 h6 v6 M26,20 v6 h-6 M12,26 h-6 v-6"></path></svg>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/105/three.min.js"></script><script src=GLTFLoader.js></script>
-<link rel="preload" href="side.png" as=image crossorigin><link rel="preload" href="bottom.png" as=image crossorigin><link rel="preload" href="top.png" as=image crossorigin>
+<script src="three.js"></script><script src=GLTFLoader.js></script>
 <script> mouseIsDown=animate_active=false
 center = new THREE.Vector3()
-alpha=-0.8; beta=1.1; x_offset=y_offset=0
+alpha=beta=-0.55; x_offset=y_offset=0
 ww=window.innerWidth; wh=window.innerHeight
 h = Math.round(wh*0.95)
 w = Math.round(ww*0.95)
 id=location.search.split('id=')[1]
 
 var loader = new THREE.GLTFLoader()
-env = new THREE.CubeTextureLoader().load(["side.png", 'side.png', 'top.png', 'bottom.png','side.png', 'side.png'])
 scene = new THREE.Scene()
-scene.add(new THREE.AmbientLight( "#fff", 1.1 ))
-scene.background = env
-renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true })
+scene.background = new THREE.Color( 0xbbbbbb )
+renderer = new THREE.WebGLRenderer({ antialias:true })
+renderer.gammaOutput = true
+renderer.gammaFactor = 2.2
 renderer.setSize(ww, wh)
-document.body.appendChild(renderer.domElement)
 
 function rescale(){
     if(ww!=window.innerWidth || wh!=window.innerHeight) {ww=window.innerWidth; wh=window.innerHeight
@@ -29,12 +27,11 @@ function rescale(){
     camera.aspect = ww / wh
     h = Math.round(wh*0.95)
     w = Math.round(ww*0.95)
-    camera.setViewOffset(ww, wh, x_offset, y_offset, ww, wh)
     animate() }}
 
 setInterval( rescale, 150)
 
-loader.load("3Dmodels/" + id + ".glb", (gltf)=>{
+loader.load("3DModels/" + id + ".glb", (gltf)=>{
     bBox = new THREE.Box3().setFromObject(gltf.scene)
     bBox.getCenter(center)
     point_1 = new THREE.Vector3(bBox.min.x, bBox.min.y, bBox.min.z)
@@ -47,9 +44,15 @@ loader.load("3Dmodels/" + id + ".glb", (gltf)=>{
     point_8 = new THREE.Vector3(bBox.max.x, bBox.max.y, bBox.max.z)
     distance = Math.max(bBox.max.x-bBox.min.x, bBox.max.y-bBox.min.y, bBox.max.z-bBox.min.z)*1.3
 
-    gltf.scene.traverse((child) => {if (child instanceof THREE.Mesh) {child.material.envMap = env; child.material.envMapIntensity=1.5}})
     scene.add(gltf.scene)
+
     camera = new THREE.PerspectiveCamera(40, ww/wh, distance/100, distance*2)
+
+    if(gltf.cameras[0]){
+        a = new THREE.Euler( gltf.cameras[0].rotation.x, gltf.cameras[0].rotation.y, gltf.cameras[0].rotation.z, 'XYZ' ).reorder("YXZ")
+        beta = a.x; alpha = a.y}
+
+    document.body.appendChild(renderer.domElement)
     rotateCam() })
 
 onmousedown = (e)=>{mouseIsDown=true; x_coord=e.clientX; y_coord=e.clientY}
@@ -59,16 +62,18 @@ onmousemove = (e)=>{if(mouseIsDown){alpha += (x_coord-e.clientX)/200; beta += (y
 ontouchmove = (e)=>{if(mouseIsDown){alpha += (x_coord-e.touches[0].clientX)/80; beta += (y_coord-e.touches[0].clientY)/80; rotateCam(); x_coord=e.touches[0].clientX; y_coord=e.touches[0].clientY}}
 
 function rotateCam(){
-    if(beta<0.05) beta=0.05
-    if(beta>3.13) beta=3.13
-    camera.position.x = center.x + distance * Math.sin(beta) * Math.sin(alpha)
-    camera.position.y = center.y + distance * Math.cos(beta)
-    camera.position.z = center.z + distance * Math.sin(beta) * Math.cos(alpha)
+    if(beta<-1.57) beta=-1.57
+    if(beta>1.57) beta=1.57
+
+    camera.position.x = center.x + distance * Math.sin(-beta-Math.PI/2) * Math.sin(alpha-Math.PI)
+    camera.position.y = center.y + distance * Math.cos(-beta-Math.PI/2)
+    camera.position.z = center.z + distance * Math.sin(-beta-Math.PI/2) * Math.cos(alpha-Math.PI)
+
     camera.lookAt(center)
-    renderer.render( scene, camera )
     if(!animate_active) animate()}
 
 function animate() {animate_active=true
+    camera.updateMatrixWorld()
     p1=point_1.clone(); p1.project(camera); p1.x=(p1.x+1)/2*ww; p1.y=(1-p1.y)/2*wh
     p2=point_2.clone(); p2.project(camera); p2.x=(p2.x+1)/2*ww; p2.y=(1-p2.y)/2*wh
     p3=point_3.clone(); p3.project(camera); p3.x=(p3.x+1)/2*ww; p3.y=(1-p3.y)/2*wh
