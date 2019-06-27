@@ -30,7 +30,7 @@ Cinema4D + Redshift workflow:
 1. find "Bake Object..." comand in "Customize Commands"
 2. select objects that you want to bake and execute "Bake Objects..." command
 3. In "Bake Object" window deselect "illuminate" option, select desired texture resulution, set pixel border to 8 and supersampling to 1
-"Bake Object" will unwrap UV's for you
+"Bake Object" will unwrap UV's for you, press "bake" button
 4. Create "Redshift BakeSet" object
 5. Add objects that you want to bake with global illumination to "Redshift BakeSet" --> Objects
 6. Set desired resolution and bake
