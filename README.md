@@ -18,3 +18,7 @@ Roadmap:
 *Player can be used for other 3D formats. Use different loader for that https://threejs.org/docs/#manual/en/introduction/Loading-3D-models
 
 If you need additional features for $ - contact me mozg4D@gmail.com
+
+Cinema4D + Redshift workflow:
+
+
