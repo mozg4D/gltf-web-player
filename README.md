@@ -8,6 +8,8 @@ Player automatically adapts to any 3D model. No input parameters needed.
 
 prepare model using https://github.com/AnalyticalGraphicsInc/gltf-pipeline
 
+V 1.1 (coming soon) : Exported camera support; load time and performavece improvements
+
 Roadmap:
 1. Adopt .basis image format (50% complete)
 2. Windows application for 3D model preparation (using gltf-pipeline) and setting player attributes.
@@ -46,3 +48,9 @@ https://labs.maxon.net/?p=3360
 3. turn on "Reflectance" channel and set reflection and specular strenghts to 0
 4. Add camera (to overwrite default view angle in GLTF player)
 5. (7) export with "export camera" and "export to binary" options on in "GLTF export options" window
+
+* You must export fully baked scene. Web 3D player does not have light sources, nor it provedes environment maps due to peformance and load tilme issues
+
+If you've done everything correctly, scene in web player should look EXACTLY as in cinema4D:
+
+![Cinema4D workflow](https://github.com/mozg4D/gltf-web-player/blob/master/result.jpg)
