@@ -8,7 +8,7 @@ Player automatically adapts to any 3D model. No input parameters needed.
 
 prepare model using https://github.com/AnalyticalGraphicsInc/gltf-pipeline
 
-V 1.1 (June 28 2019) : Exported camera support; load time and performavece improvements
+V 1.1 (June 28 2019) : Exported camera support; load time and performance improvements
 
 Roadmap:
 0. Cinema4d-like navigation
