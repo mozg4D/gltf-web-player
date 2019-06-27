@@ -8,9 +8,10 @@ Player automatically adapts to any 3D model. No input parameters needed.
 
 prepare model using https://github.com/AnalyticalGraphicsInc/gltf-pipeline
 
-V 1.1 (coming soon) : Exported camera support; load time and performavece improvements
+V 1.1 (June 28 2019) : Exported camera support; load time and performavece improvements
 
 Roadmap:
+0. Cinema4d-like navigation
 1. Adopt .basis image format (50% complete)
 2. Windows application for 3D model preparation (using gltf-pipeline) and setting player attributes.
 3. Advanced Cinema4D-like camera navigation
@@ -55,5 +56,5 @@ If you've done everything correctly, scene in web player should look EXACTLY as 
 
 ![Cinema4D workflow](https://github.com/mozg4D/gltf-web-player/blob/master/result.jpg)
 
-To speed up the development of player feel free to donate some)
+To speed up the development of player feel free to donate some) or to upvote features you need the most)
 https://www.paypal.me/mozg4d
