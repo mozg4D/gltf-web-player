@@ -21,7 +21,7 @@ If you need additional features for $ - contact me mozg4D@gmail.com
 
 Cinema4D + Redshift workflow:
 
-![Cinema4D workflow](https://github.com/mozg4D/gltf-web-player/blob/master/cinema4d_1.jpg)
+![Cinema4D workflow](https://github.com/mozg4D/gltf-web-player/blob/master/cinema4d_2.jpg)
 
 0 - make your 3D model
 1 - find "Bake Object..." comand in "Customize Commands"
