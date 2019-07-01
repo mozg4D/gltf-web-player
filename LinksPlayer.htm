@@ -14,6 +14,8 @@ w = Math.round(ww*0.95)
 id=location.search.split('id=')[1]
 
 var loader = new THREE.GLTFLoader()
+//Environment for reflections; turn on if needed
+//env = new THREE.CubeTextureLoader().load(["side.png", 'side.png', 'top.png', 'bottom.png','side.png', 'side.png'])
 scene = new THREE.Scene()
 scene.background = new THREE.Color( 0xbbbbbb )
 renderer = new THREE.WebGLRenderer({ antialias:true })
@@ -43,6 +45,8 @@ loader.load("3DModels/" + id + ".glb", (gltf)=>{
     point_7 = new THREE.Vector3(bBox.max.x, bBox.max.y, bBox.min.z)
     point_8 = new THREE.Vector3(bBox.max.x, bBox.max.y, bBox.max.z)
     distance = Math.max(bBox.max.x-bBox.min.x, bBox.max.y-bBox.min.y, bBox.max.z-bBox.min.z)*1.3
+    //Environment for reflections; turn on if needed
+    //gltf.scene.traverse((child) => {if (child instanceof THREE.Mesh) {child.material.envMap = env; child.material.envMapIntensity=1.5}})
 
     scene.add(gltf.scene)
 
