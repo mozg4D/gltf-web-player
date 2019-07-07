@@ -39,7 +39,7 @@ You can use Cinema4D "Bake object" comand with "illuminate" option on and skip r
 
 Exporting GLTF:
 
-use this amazing GLTF exporter by Basel Abu-sininni
+use this amazing GLTF exporter by BASEL ABU-SINNI
 https://labs.maxon.net/?p=3360
 
 ![Cinema4D workflow](https://github.com/mozg4D/gltf-web-player/blob/master/cinema4d_1.jpg)
