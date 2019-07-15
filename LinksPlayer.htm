@@ -29,6 +29,7 @@ function rescale(){
     camera.aspect = ww / wh
     h = Math.round(wh*0.95)
     w = Math.round(ww*0.95)
+    camera.setViewOffset(ww, wh, x_offset, y_offset, ww, wh)
     animate() }}
 
 setInterval( rescale, 150)
