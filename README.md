@@ -2,7 +2,7 @@
 
 Usage: <iframe src="LinksPlayer.htm?id=1" allowfullscreen></iframe>
 
-Example: http://mozg4d.com/LinksPlayer/
+Example: https://3d-modellers.com/
 
 Player automatically adapts to any 3D model. No input parameters needed.
 
@@ -17,8 +17,6 @@ Roadmap:
 4. Advanced Cinema4D-like camera navigation
 5. VR AR support
 6. Set markers and links on 3D model
-
-*Player can be used for other 3D formats. Use different loader for that https://threejs.org/docs/#manual/en/introduction/Loading-3D-models
 
 If you need additional features for $ - contact me mozg4D@gmail.com
 
