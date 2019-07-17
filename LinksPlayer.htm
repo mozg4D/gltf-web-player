@@ -35,7 +35,7 @@ function rescale(){
 
 setInterval( rescale, 150)
 
-loader.load("3DModels/" + id + ".glb", (gltf)=>{
+loader.load("3DModels/" + id + ".glb", function(gltf){
     bBox = new THREE.Box3().setFromObject(gltf.scene)
     bBox.getCenter(center)
     point_1 = new THREE.Vector3(bBox.min.x, bBox.min.y, bBox.min.z)
@@ -61,11 +61,11 @@ loader.load("3DModels/" + id + ".glb", (gltf)=>{
     document.body.appendChild(renderer.domElement)
     rotateCam() })
 
-onmousedown = (e)=>{mouseIsDown=true; x_coord=e.clientX; y_coord=e.clientY}
-ontouchstart = (e)=>{mouseIsDown=true; x_coord=e.touches[0].clientX; y_coord=e.touches[0].clientY}
-onmouseup = ()=>{mouseIsDown=false}
-onmousemove = (e)=>{if(mouseIsDown){alpha += (x_coord-e.clientX)/200; beta += (y_coord-e.clientY)/200; rotateCam(); x_coord=e.clientX; y_coord=e.clientY}}
-ontouchmove = (e)=>{if(mouseIsDown){alpha += (x_coord-e.touches[0].clientX)/80; beta += (y_coord-e.touches[0].clientY)/80; rotateCam(); x_coord=e.touches[0].clientX; y_coord=e.touches[0].clientY}}
+onmousedown = function(e){mouseIsDown=true; x_coord=e.clientX; y_coord=e.clientY}
+ontouchstart = function(e){mouseIsDown=true; x_coord=e.touches[0].clientX; y_coord=e.touches[0].clientY}
+onmouseup = function(){mouseIsDown=false}
+onmousemove = function(e){if(mouseIsDown){alpha += (x_coord-e.clientX)/200; beta += (y_coord-e.clientY)/200; rotateCam(); x_coord=e.clientX; y_coord=e.clientY}}
+ontouchmove = function(e){if(mouseIsDown){alpha += (x_coord-e.touches[0].clientX)/80; beta += (y_coord-e.touches[0].clientY)/80; rotateCam(); x_coord=e.touches[0].clientX; y_coord=e.touches[0].clientY}}
 
 function rotateCam(){
     if(beta<-1.57) beta=-1.57
