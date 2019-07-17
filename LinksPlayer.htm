@@ -2,11 +2,12 @@
 <style>.ico{position:absolute}.ico:hover{border:2px solid #fff;margin:-2px} canvas{touch-action:none}</style>
 </head><body id="LinksBody" style="margin:0;background:#ddd;position:fixed;overflow:hidden;cursor:pointer;user-select:none;font-family:helvetica;font-size:22px;-webkit-tap-highlight-color:rgba(0,0,0,0)">
 <div style="position:absolute;width:100vw;z-index:-1;background:#bbb;text-align:center;padding:calc(50vh - 30px) 0">3D model<br>loading...</div>
-<svg style="right:7;top:7;width:32;height:32" onclick="fs()" class="ico"><path style="stroke:#ddd;fill:#fff" d="M0.5,0.5 31.5,0.5 31.5,31.5 0.5,31.5Z"></path>
+<svg style="right:7px;top:7px;width:32px;height:32px" onclick="fs()" class="ico"><path style="stroke:#ddd;fill:#fff" d="M0.5,0.5 31.5,0.5 31.5,31.5 0.5,31.5Z"></path>
 <path style="stroke:#000;fill:none" d="M6,12 v-6 h6 M20,6 h6 v6 M26,20 v6 h-6 M12,26 h-6 v-6"></path></svg>
 <script src="three.js"></script><script src=GLTFLoader.js></script>
 <script> mouseIsDown=animate_active=false
 center = new THREE.Vector3()
+fss=false
 alpha=beta=-0.55; x_offset=y_offset=0
 ww=window.innerWidth; wh=window.innerHeight
 h = Math.round(wh*0.95)
@@ -109,5 +110,11 @@ function animate() {animate_active=true
     renderer.render( scene, camera )
     fix ? requestAnimationFrame(animate) : animate_active=false}
 
-fss=false; function fs(){fss=!fss; fss ? LinksBody.requestFullscreen() : document.exitFullscreen()}
+function fs(){fss=!fss;
+    if(fss){
+        if (LinksBody.requestFullscreen) LinksBody.requestFullscreen()
+        if (LinksBody.webkitRequestFullscreen) LinksBody.webkitRequestFullscreen()}
+    else{
+        if (document.exitFullscreen) document.exitFullscreen()
+        if (document.webkitExitFullscreen) document.webkitExitFullscreen()}}
 </script></body>
